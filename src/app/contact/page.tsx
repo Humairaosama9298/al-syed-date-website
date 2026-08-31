@@ -132,8 +132,19 @@ export default function Contact() {
                   {
                     icon: <FaMapMarkerAlt className="text-primary text-xl" />,
                     title: "Location",
-                    value:
-                      "Office No: 203, 2nd Floor, MR 5/121, Mehran Manzil, Zakaria Lane, Jodia Bazar, Karachi.",
+                     value: (
+    <>
+      <strong>Head Office Karachi Address:</strong>
+      <br />
+      Office No: 203, 2nd Floor, MR 5/121, Jodia Bazar, Karachi, Pakistan.
+
+      <br /><br />
+
+      <strong>Factory Khairpur Address:</strong>
+      <br />
+      Old National Highway, Therhi, Khairpur Mirs, 66160, Sindh, Pakistan.
+    </>
+  ),
                   },
                 ].map((item, i) => (
                   <motion.div
