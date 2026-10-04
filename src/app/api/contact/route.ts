@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
 
-const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
@@ -18,8 +22,7 @@ export async function POST(req: Request) {
     }
 
     // Send email
-    await transporter.sendMail({
-      from: `"Alsyed Brothers" <${process.env.EMAIL_USER}>`,
+          from: `"Alsyed Brothers" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_TO || 'info@alsyedbrothers.com',
       subject: `New Contact Message from ${name}`,
       html: `
