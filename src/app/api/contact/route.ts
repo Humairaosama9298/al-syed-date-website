@@ -1,20 +1,26 @@
 import { NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+})
 
 export async function POST(req: Request) {
   try {
     const { name, email, message } = await req.json()
 
-    if (!name || !email || !message) {
+    if (!name || !email || message) {
       return NextResponse.json({ success: false, error: 'All fields are required' }, { status: 400 })
     }
 
     // Send email
-    await resend.emails.send({
-      from: "Alsyed Brothers <info@alsyedbrothers.com>",
-      to: "info@alsyedbrothers.com",  
+    await transporter.sendMail({
+      from: `"Alsyed Brothers" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO || 'info@alsyedbrothers.com',
       subject: `New Contact Message from ${name}`,
       html: `
         <h2>New Contact Inquiry</h2>
